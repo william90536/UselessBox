@@ -153,7 +153,7 @@
       LID_INITIAL_HEIGHT: 72,              // 盒蓋初始高度 (關閉)
       OCTOPUS_IDLE_X: 300,                 // 章魚初始 X 位置 (居中)
       OCTOPUS_IDLE_Y: 240,                 // 章魚初始 Y 位置 (深潛待機)
-      OCTOPUS_PEEK_Y: 160,                 // 章魚完全探頭時的 Y 位置
+      OCTOPUS_PEEK_Y: 180,                 // 章魚完全探頭時的 Y 位置
       IDLE_TIMEOUT_MS: 10000,              // 閒置觸發彩蛋的時間 (10秒)
       LERP: {
         NORMAL: 0.16,                      // 正常移動時的平滑緩動因子
@@ -485,7 +485,7 @@
         
         OctopusEngine.targetX = CONFIG.SWITCH_XS[targetIdx];
         OctopusEngine.targetY = 185;          
-        OctopusEngine.targetLidProgress = 0.45; 
+        OctopusEngine.targetLidProgress = 0.65; 
         AudioEngine.playWood();
         await this.sleep(250);
 
@@ -620,13 +620,14 @@
        */
       resetIdleTimer() {
         this.clearIdleTimer();
+        CONFIG.IDLE_TIMEOUT_MS = Math.floor(Math.random() * 10) * 1000;
         AppStore.idleTimer = setTimeout(async () => {
           if (AppStore.isBusy || AppStore.hasAnyActiveSwitch()) return;
           AppStore.isBusy = true;
           
           OctopusEngine.setMood('curious', 'normal');
           Dom.$terminalText.text(`外面好安靜... 偷偷推開蓋子看一眼... 👀`);
-          OctopusEngine.targetLidProgress = 0.45; 
+          OctopusEngine.targetLidProgress = 0.65; 
           OctopusEngine.targetX = CONFIG.OCTOPUS_IDLE_X; 
           OctopusEngine.targetY = 185; 
           AudioEngine.playWood();
@@ -674,7 +675,7 @@
           AppStore.switchesState[idx] = !AppStore.switchesState[idx];
           UIController.updateSwitchesHardwareUI();
           
-          setTimeout(() => { SequenceBrain.processNextAction(); }, 30);
+          setTimeout(() => { SequenceBrain.processNextAction(); }, 900);
         });
 
         // 靜音按鈕切換 (使用 jQuery 鏈式語法一體化完成文字與 Class 修改)
