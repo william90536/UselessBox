@@ -1,9 +1,4 @@
 /**
- * Virtual Useless Box - app.js
- * jQuery 驅動 ＋ 快取流暢防禦機制
- */
-
-/**
  * 全域核心參數配置
  */
 const CONFIG = {

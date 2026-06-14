@@ -1,5 +1,3 @@
-/* ===== Virtual Useless Box - style.css ===== */
-
 /* 撥桿翻轉動畫 */
 .switch-lever {
   transition: transform 0.3s ease;
