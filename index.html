@@ -386,9 +386,7 @@
             shakeY = (Math.random() - 0.5) * 5;
             rotation = (Math.random() - 0.5) * 6;
           }
-          Dom.$octopusGroup.css({'transform-origin': '0px 100px', 'transform': `translate(${this.currentX  + shakeX}px, ${this.currentY + shakeY}px) rotate(${rotation}deg) scale(${scaleX}, ${scaleY})`
-          
-});
+          Dom.$octopusGroup.css({'transform-origin': '0px 100px', 'transform': `translate(${this.currentX  + shakeX}px, ${this.currentY + shakeY}px) rotate(${rotation}deg) scale(${scaleX}, ${scaleY})`});
 
           // 5. 【防穿模安全機制】
           for (let i = 0; i < 5; i++) {
@@ -455,7 +453,7 @@
         await this.sleep(350);
 
         if (!AppStore.switchesState[targetIdx]) { 
-          await this.retractSequence(targetIdx); 
+          await this.retractTentacle(targetIdx); 
           return; 
         }
 
@@ -464,16 +462,17 @@
         AudioEngine.playSqueak(false);
 
         OctopusEngine.targetTentacleProgress[targetIdx] = 1.0; 
-        await this.sleep(180); 
-
+        
+        await this.sleep(1); 
+        
         if (AppStore.switchesState[targetIdx]) {
           AppStore.switchesState[targetIdx] = false;
           UIController.updateSwitchesHardwareUI();
           AudioEngine.playClick();
         }
 
-        await this.sleep(100);
-        await this.retractSequence(targetIdx);
+        await this.sleep(500);
+        await this.retractTentacle(targetIdx);
       },
 
       /**
@@ -489,13 +488,13 @@
         AudioEngine.playWood();
         await this.sleep(250);
 
-        if (!AppStore.switchesState[targetIdx]) { await this.retractSequence(targetIdx); return; }
+        if (!AppStore.switchesState[targetIdx]) { await this.retractTentacle(targetIdx); return; }
 
         OctopusEngine.targetTentacleProgress[targetIdx] = 0.45; 
         Dom.$terminalText.text(`（裝死中... 故意引誘你大意... 🤫）`);
         await this.sleep(800); 
 
-        if (!AppStore.switchesState[targetIdx]) { await this.retractSequence(targetIdx); return; }
+        if (!AppStore.switchesState[targetIdx]) { await this.retractTentacle(targetIdx); return; }
 
         Dom.$terminalText.text(`騙到你了！高速秒殺！🤪⚡`);
         OctopusEngine.setMood('attacking', 'angry');
@@ -512,8 +511,8 @@
           AudioEngine.playClick();
         }
 
-        await this.sleep(125);
-        await this.retractSequence(targetIdx);
+        await this.sleep(500);
+        await this.retractTentacle(targetIdx);
       },
 
       /**
@@ -531,20 +530,16 @@
 
         AudioEngine.playSqueak(true);
         targetIndices.forEach(idx => { OctopusEngine.targetTentacleProgress[idx] = 1.0; }); 
-        await this.sleep(220);
+        await this.sleep(1);
 
         targetIndices.forEach(idx => { AppStore.switchesState[idx] = false; });
         UIController.updateSwitchesHardwareUI();
         AudioEngine.playClick();
 
-        await this.sleep(150);
+        await this.sleep(300);
         OctopusEngine.targetTentacleProgress = [0, 0, 0, 0, 0];
-        await this.sleep(160);
-        
-        OctopusEngine.targetLidProgress = 0.0;
-        OctopusEngine.targetY = CONFIG.OCTOPUS_IDLE_Y;
-        AudioEngine.playWood();
-        await this.sleep(250);
+  
+        await this.sleep(200);
       },
 
       /**
@@ -567,7 +562,7 @@
           
           OctopusEngine.targetTentacleProgress[idx] = 1.0; 
           AudioEngine.playSqueak(false);
-          await this.sleep(110);
+          await this.sleep(1);
 
           if (AppStore.switchesState[idx]) {
             AppStore.switchesState[idx] = false;
@@ -579,26 +574,19 @@
           await this.sleep(60);
         }
 
-        OctopusEngine.targetX = CONFIG.OCTOPUS_IDLE_X;
-        await this.sleep(100);
+        OctopusEngine.setMood('moving', 'normal');
+        await this.sleep(500);
         
-        OctopusEngine.targetLidProgress = 0.0; 
-        OctopusEngine.targetY = CONFIG.OCTOPUS_IDLE_Y;
-        AudioEngine.playWood();
-        await this.sleep(250);
+        
       },
 
       /**
-       * 單條觸手回收與關蓋子序列
+       * 觸手回收
        */
-      async retractSequence(idx) {
+      async retractTentacle(idx) {
         OctopusEngine.targetTentacleProgress[idx] = 0.0; 
         await this.sleep(160);                          
-        
-        OctopusEngine.targetLidProgress = 0.0;          
-        OctopusEngine.targetY = CONFIG.OCTOPUS_IDLE_Y;  
         OctopusEngine.setMood('moving', 'normal');
-        AudioEngine.playWood();
         await this.sleep(250); 
       },
 
@@ -620,7 +608,7 @@
        */
       resetIdleTimer() {
         this.clearIdleTimer();
-        CONFIG.IDLE_TIMEOUT_MS = Math.floor(Math.random() * 10) * 1000;
+        CONFIG.IDLE_TIMEOUT_MS = (Math.floor(Math.random() * 10) + 5) * 1000;
         AppStore.idleTimer = setTimeout(async () => {
           if (AppStore.isBusy || AppStore.hasAnyActiveSwitch()) return;
           AppStore.isBusy = true;
@@ -640,7 +628,12 @@
           await this.sleep(800);
           Dom.$leftPupil.attr('cx', '-20'); Dom.$rightPupil.attr('cx', '20');
           await this.sleep(400);
-
+          
+          AppStore.isBusy = false;
+          if(AppStore.hasAnyActiveSwitch()){
+            SequenceBrain.processNextAction();
+            return;
+          }
           OctopusEngine.targetY = CONFIG.OCTOPUS_IDLE_Y;
           await this.sleep(180);
           OctopusEngine.targetLidProgress = 0.0; 
