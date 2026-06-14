@@ -6,6 +6,7 @@
   <title>🐙 Virtual Useless Box - jQuery Clean Version</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen bg-zinc-950 text-slate-100 p-4 select-none overflow-hidden">
 
@@ -19,12 +20,12 @@
   </div>
 
   <div class="relative w-full max-w-[620px] bg-zinc-900 border border-zinc-800 rounded-3xl p-4 md:p-6 shadow-2xl">
-    
+
+    <!-- 頂部控制列 -->
     <div class="flex justify-between items-center mb-4">
       <button id="btn-mute" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm bg-emerald-950/80 text-emerald-400 border border-emerald-800/60 hover:bg-emerald-900 cursor-pointer">
         🔊 音效：正常發聲
       </button>
-
       <div class="flex gap-2">
         <button id="btn-multi" class="text-[11px] bg-purple-950 text-purple-300 border border-purple-800/50 hover:bg-purple-900 font-semibold px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer">
           併發：多觸手流
@@ -35,64 +36,74 @@
       </div>
     </div>
 
+    <!-- SVG 主畫布 -->
     <div class="relative w-full aspect-[600/380] bg-zinc-950 rounded-2xl border-4 border-amber-950 overflow-hidden shadow-inner">
       <svg viewBox="0 0 600 380" class="w-full h-full">
-        
+
+        <!-- 箱體底部 -->
         <rect x="40" y="140" width="520" height="230" fill="#140e0a" rx="8" />
-        
+
+        <!-- 章魚本體 -->
         <g id="octopus-group" style="transform-origin: center bottom;">
           <path id="octopus-head" d="M -50 0 C -50 -55, 50 -55, 50 0 C 50 30, -50 30, -50 0" fill="#8b5cf6" class="transition-colors duration-300" />
-          
+
           <g transform="translate(0, -10)">
-            <ellipse id="left-eye-white" cx="-20" cy="0" rx="13" ry="13" fill="#ffffff" />
-            <ellipse id="right-eye-white" cx="20" cy="0" rx="13" ry="13" fill="#ffffff" />
-            <path id="eyebrow-left" d="M -35 -14 L -5 -7" stroke="#311068" stroke-width="4" stroke-linecap="round" class="hidden" />
-            <path id="eyebrow-right" d="M 35 -14 L 5 -7" stroke="#311068" stroke-width="4" stroke-linecap="round" class="hidden" />
-            <circle id="left-pupil" cx="-20" cy="0" r="7" fill="#1e1b4b" class="transition-all duration-200" />
-            <circle id="right-pupil" cx="20" cy="0" r="7" fill="#1e1b4b" class="transition-all duration-200" />
-            <circle id="left-shine" cx="-22" cy="-3" r="2.5" fill="#ffffff" />
-            <circle id="right-shine" cx="18" cy="-3" r="2.5" fill="#ffffff" />
+            <ellipse id="left-eye-white"  cx="-20" cy="0" rx="13" ry="13" fill="#ffffff" />
+            <ellipse id="right-eye-white" cx="20"  cy="0" rx="13" ry="13" fill="#ffffff" />
+            <path id="eyebrow-left"  d="M -35 -14 L -5 -7"  stroke="#311068" stroke-width="4" stroke-linecap="round" class="hidden" />
+            <path id="eyebrow-right" d="M 35 -14 L 5 -7"    stroke="#311068" stroke-width="4" stroke-linecap="round" class="hidden" />
+            <circle id="left-pupil"  cx="-20" cy="0" r="7" fill="#1e1b4b" class="transition-all duration-200" />
+            <circle id="right-pupil" cx="20"  cy="0" r="7" fill="#1e1b4b" class="transition-all duration-200" />
+            <circle id="left-shine"  cx="-22" cy="-3" r="2.5" fill="#ffffff" />
+            <circle id="right-shine" cx="18"  cy="-3" r="2.5" fill="#ffffff" />
             <path id="mouth-path" d="M -6 12 Q 0 17 6 12" fill="none" stroke="#1e1b4b" stroke-width="3" stroke-linecap="round" />
           </g>
         </g>
 
+        <!-- 箱體邊緣隔板 -->
         <rect x="40" y="140" width="520" height="15" fill="#451a03" />
 
+        <!-- 箱體面板 -->
         <rect x="35" y="210" width="530" height="155" fill="#9a3412" rx="4" stroke="#451a03" stroke-width="1.5" />
-        <rect x="35" y="210" width="530" height="15" fill="#b45309" rx="2" />
-        
-        <rect id="box-lid" x="35" y="140" width="530" height="72" fill="#78350f" rx="4" stroke="#290f02" stroke-width="1.5" />
-        <rect id="lid-handle" x="270" y="202" width="60" height="6" fill="#d97706" rx="1" />
+        <rect x="35" y="210" width="530" height="15"  fill="#b45309" rx="2" />
 
+        <!-- 盒蓋 -->
+        <rect id="box-lid"    x="35"  y="140" width="530" height="72" fill="#78350f" rx="4" stroke="#290f02" stroke-width="1.5" />
+        <rect id="lid-handle" x="270" y="202" width="60"  height="6"  fill="#d97706" rx="1" />
+
+        <!-- 開關底板 -->
         <rect x="60" y="300" width="480" height="40" fill="url(#chrome-gradient)" rx="6" stroke="#290f02" stroke-width="1" />
-        
+
+        <!-- 觸手層 -->
         <g id="all-tentacles-layer">
           <path id="tentacle-0" d="" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round" />
-          <path id="suckers-0" d="" fill="none" stroke="#f472b6" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 7" />
-          
+          <path id="suckers-0"  d="" fill="none" stroke="#f472b6" stroke-width="4"  stroke-linecap="round" stroke-dasharray="3 7" />
+
           <path id="tentacle-1" d="" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round" />
-          <path id="suckers-1" d="" fill="none" stroke="#f472b6" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 7" />
-          
+          <path id="suckers-1"  d="" fill="none" stroke="#f472b6" stroke-width="4"  stroke-linecap="round" stroke-dasharray="3 7" />
+
           <path id="tentacle-2" d="" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round" />
-          <path id="suckers-2" d="" fill="none" stroke="#f472b6" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 7" />
-          
+          <path id="suckers-2"  d="" fill="none" stroke="#f472b6" stroke-width="4"  stroke-linecap="round" stroke-dasharray="3 7" />
+
           <path id="tentacle-3" d="" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round" />
-          <path id="suckers-3" d="" fill="none" stroke="#f472b6" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 7" />
-          
+          <path id="suckers-3"  d="" fill="none" stroke="#f472b6" stroke-width="4"  stroke-linecap="round" stroke-dasharray="3 7" />
+
           <path id="tentacle-4" d="" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round" />
-          <path id="suckers-4" d="" fill="none" stroke="#f472b6" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 7" />
+          <path id="suckers-4"  d="" fill="none" stroke="#f472b6" stroke-width="4"  stroke-linecap="round" stroke-dasharray="3 7" />
         </g>
 
         <defs>
           <linearGradient id="chrome-gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#9ca3af" />
-            <stop offset="50%" stop-color="#4b5563" />
+            <stop offset="0%"   stop-color="#9ca3af" />
+            <stop offset="50%"  stop-color="#4b5563" />
             <stop offset="100%" stop-color="#1f2937" />
           </linearGradient>
         </defs>
       </svg>
 
+      <!-- 5 個撥桿開關 (HTML 覆蓋層) -->
       <div class="absolute left-[10%] top-[78.95%] w-[80%] h-[10.53%] flex justify-between items-center px-[4%] z-20">
+
         <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="0">
           <div class="w-3 h-6 bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
             <div class="switch-lever w-1.5 h-6 rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[2px] rotate-x-[35deg]">
@@ -100,6 +111,7 @@
             </div>
           </div>
         </div>
+
         <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="1">
           <div class="w-3 h-6 bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
             <div class="switch-lever w-1.5 h-6 rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[2px] rotate-x-[35deg]">
@@ -107,6 +119,7 @@
             </div>
           </div>
         </div>
+
         <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="2">
           <div class="w-3 h-6 bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
             <div class="switch-lever w-1.5 h-6 rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[2px] rotate-x-[35deg]">
@@ -114,6 +127,7 @@
             </div>
           </div>
         </div>
+
         <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="3">
           <div class="w-3 h-6 bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
             <div class="switch-lever w-1.5 h-6 rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[2px] rotate-x-[35deg]">
@@ -121,6 +135,7 @@
             </div>
           </div>
         </div>
+
         <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="4">
           <div class="w-3 h-6 bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
             <div class="switch-lever w-1.5 h-6 rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[2px] rotate-x-[35deg]">
@@ -128,9 +143,11 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
+    <!-- 終端機顯示列 -->
     <div class="mt-5 bg-black border border-zinc-800 rounded-xl p-3 shadow-inner">
       <div class="flex items-center gap-2 mb-1">
         <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
@@ -143,580 +160,6 @@
 
   </div>
 
-  <script>
-    /**
-     * 全域核心參數配置
-     */
-    const CONFIG = {
-      SWITCH_XS: [98, 199, 300, 401, 502], // 5個開關的 X 軸物理中心點
-      SWITCH_Y: 315,                       // 開關的 Y 軸高度
-      LID_INITIAL_HEIGHT: 72,              // 盒蓋初始高度 (關閉)
-      OCTOPUS_IDLE_X: 300,                 // 章魚初始 X 位置 (居中)
-      OCTOPUS_IDLE_Y: 240,                 // 章魚初始 Y 位置 (深潛待機)
-      OCTOPUS_PEEK_Y: 180,                 // 章魚完全探頭時的 Y 位置
-      IDLE_TIMEOUT_MS: 10000,              // 閒置觸發彩蛋的時間 (10秒)
-      LERP: {
-        NORMAL: 0.16,                      // 正常移動時的平滑緩動因子
-        ANGRY: 0.32,                       // 暴怒、反擊時的高速緩動因子
-        LID: 0.22,                         // 盒蓋開合的緩動速度
-        TENTACLE: 0.26                     // 觸手伸出收回的緩動速度
-      }
-    };
-
-    /**
-     * 音效合成引擎
-     */
-    const AudioEngine = {
-      isMuted: false,
-      ctx: null,
-      init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
-      playClick() {
-        if (this.isMuted) return; this.init();
-        const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
-        osc.connect(gain); gain.connect(this.ctx.destination);
-        osc.type = 'triangle'; osc.frequency.setValueAtTime(1200, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(80, this.ctx.currentTime + 0.05);
-        gain.gain.setValueAtTime(0.15, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.05);
-        osc.start(); osc.stop(this.ctx.currentTime + 0.05);
-      },
-      playWood() {
-        if (this.isMuted) return; this.init();
-        const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
-        osc.connect(gain); gain.connect(this.ctx.destination);
-        osc.type = 'sine'; osc.frequency.setValueAtTime(130, this.ctx.currentTime);
-        osc.frequency.linearRampToValueAtTime(50, this.ctx.currentTime + 0.12);
-        gain.gain.setValueAtTime(0.25, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.12);
-        osc.start(); osc.stop(this.ctx.currentTime + 0.12);
-      },
-      playSqueak(isAngry = false) {
-        if (this.isMuted) return; this.init();
-        const now = this.ctx.currentTime, dur = isAngry ? 0.09 : 0.2, loops = isAngry ? 3 : 1;
-        for (let i = 0; i < loops; i++) {
-          const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
-          osc.connect(gain); gain.connect(this.ctx.destination);
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(isAngry ? 850 + i*160 : 550, now + i*0.04);
-          osc.frequency.exponentialRampToValueAtTime(isAngry ? 1700 : 1050, now + i*0.04 + dur);
-          gain.gain.setValueAtTime(0.08, now + i*0.04); gain.gain.exponentialRampToValueAtTime(0.001, now + i*0.04 + dur);
-          osc.start(now + i*0.04); osc.stop(now + i*0.04 + dur);
-        }
-      }
-    };
-
-    /**
-     * jQuery DOM 元素統一管理器 (全面採用 $字頭變數 快取物件)
-     */
-    let Dom = {};
-    
-    // 在 jQuery Ready 後統初始化 DOM 綁定
-    $(function() {
-      Dom = {
-        $btnMute: $('#btn-mute'),
-        $btnMulti: $('#btn-multi'),
-        $btnWiper: $('#btn-wiper'),
-        $terminalText: $('#terminal-text'),
-        $octopusGroup: $('#octopus-group'),
-        $octopusHead: $('#octopus-head'),
-        $boxLid: $('#box-lid'),
-        $lidHandle: $('#lid-handle'),
-        $leftEyeWhite: $('#left-eye-white'),
-        $rightEyeWhite: $('#right-eye-white'),
-        $eyebrowLeft: $('#eyebrow-left'),
-        $eyebrowRight: $('#eyebrow-right'),
-        $leftPupil: $('#left-pupil'),
-        $rightPupil: $('#right-pupil'),
-        $mouthPath: $('#mouth-path'),
-        $switchContainers: $('.switch-container')
-      };
-
-      // 初始化各引擎
-      OctopusEngine.init();
-      UIController.init();
-      SequenceBrain.resetIdleTimer();
-    });
-
-    /**
-     * 全域應用程式狀態模型
-     */
-    const AppStore = {
-      switchesState: [false, false, false, false, false],
-      isBusy: false,
-      idleTimer: null,
-      
-      hasAnyActiveSwitch() {
-        return this.switchesState.some(state => state);
-      },
-      getActiveIndices() {
-        const indices = [];
-        this.switchesState.forEach((state, i) => { if (state) indices.push(i); });
-        return indices;
-      }
-    };
-
-    /**
-     * 章魚物理運算與視覺渲染引擎 (jQuery 驅動版)
-     */
-    const OctopusEngine = {
-      // 目標狀態 (Target)
-      targetX: CONFIG.OCTOPUS_IDLE_X,
-      targetY: CONFIG.OCTOPUS_IDLE_Y,
-      targetLidProgress: 0, 
-      targetTentacleProgress: [0, 0, 0, 0, 0],
-
-      // 當前物理狀態 (Current)
-      currentX: CONFIG.OCTOPUS_IDLE_X,
-      currentY: CONFIG.OCTOPUS_IDLE_Y,
-      currentLidProgress: 0,
-      currentTentacleProgress: [0, 0, 0, 0, 0],
-
-      mood: 'idle',       
-      expression: 'normal',
-
-      // 💥 效能關鍵：快取 5 條觸手的 jQuery 物件，避免 60fps Loop 中重複查詢
-      $tentacles: [],
-      $suckers: [],
-
-      init() {
-        // 批次快取觸手 DOM
-        for (let i = 0; i < 5; i++) {
-          this.$tentacles.push($(`#tentacle-${i}`));
-          this.$suckers.push($(`#suckers-${i}`));
-        }
-        this.startPhysicsLoop();
-      },
-
-      setMood(newMood, newExpression) {
-        this.mood = newMood;
-        this.expression = newExpression;
-        this.renderExpressions();
-      },
-
-      /**
-       * 渲染非線性表情五官 (使用 jQuery 物件批次注入屬性)
-       */
-      renderExpressions() {
-        Dom.$octopusHead.attr('fill', this.mood === 'angry' ? '#ef4444' : '#8b5cf6');
-        
-        switch (this.expression) {
-          case 'shocked':
-            Dom.$leftEyeWhite.attr({ rx: 15, ry: 15 });
-            Dom.$rightEyeWhite.attr({ rx: 15, ry: 15 });
-            Dom.$leftPupil.attr({ r: 4, fill: '#1e1b4b' });
-            Dom.$rightPupil.attr({ r: 4, fill: '#1e1b4b' });
-            Dom.$mouthPath.attr('d', 'M -5 14 A 4 4 0 1 1 5 14'); 
-            Dom.$eyebrowLeft.addClass('hidden'); 
-            Dom.$eyebrowRight.addClass('hidden');
-            break;
-          case 'angry':
-            Dom.$leftEyeWhite.attr({ rx: 13, ry: 13 });
-            Dom.$rightEyeWhite.attr({ rx: 13, ry: 13 });
-            Dom.$leftPupil.attr({ r: 5.5, fill: '#ff1111' });
-            Dom.$rightPupil.attr({ r: 5.5, fill: '#ff1111' });
-            Dom.$mouthPath.attr('d', 'M -6 16 Q 0 10 6 16'); 
-            Dom.$eyebrowLeft.removeClass('hidden'); 
-            Dom.$eyebrowRight.removeClass('hidden');
-            break;
-          default: // 'normal'
-            Dom.$leftEyeWhite.attr({ rx: 13, ry: 13 });
-            Dom.$rightEyeWhite.attr({ rx: 13, ry: 13 });
-            Dom.$leftPupil.attr({ r: 7, fill: '#1e1b4b' });
-            Dom.$rightPupil.attr({ r: 7, fill: '#1e1b4b' });
-            Dom.$mouthPath.attr('d', 'M -6 12 Q 0 17 6 12'); 
-            Dom.$eyebrowLeft.addClass('hidden'); 
-            Dom.$eyebrowRight.addClass('hidden');
-            break;
-        }
-
-        if (this.mood !== 'curious') {
-          Dom.$leftPupil.attr('cx', '-20'); 
-          Dom.$rightPupil.attr('cx', '20');
-        }
-      },
-
-      /**
-       * 計算貝茲曲線觸手的動態生成路徑
-       */
-      calculateTentaclePath(idx) {
-        const anchorOffsets = [-35, -17, 0, 17, 35]; 
-        const startX = this.currentX + anchorOffsets[idx];
-        const startY = this.currentY + 25;
-        const progress = this.currentTentacleProgress[idx];
-
-        const targetX = CONFIG.SWITCH_XS[idx];
-        const targetY = CONFIG.SWITCH_Y;
-        
-        const currentTipX = startX + (targetX - startX) * progress;
-        const currentTipY = startY + (targetY - startY) * progress;
-
-        const controlX = (startX + currentTipX) / 2 + (idx - 2) * 12;
-        const controlY = Math.min(startY, currentTipY) - (60 * progress);
-
-        return `M ${startX} ${startY} Q ${controlX} ${controlY} ${currentTipX} ${currentTipY}`;
-      },
-
-      /**
-       * 核心 60FPS 物理渲染循環 (LERP 技術)
-       */
-      startPhysicsLoop() {
-        const loop = () => {
-          // 1. 本體平滑 LERP 移動
-          const bodyLerp = (this.mood === 'angry') ? CONFIG.LERP.ANGRY : CONFIG.LERP.NORMAL;
-          this.currentX += (this.targetX - this.currentX) * bodyLerp;
-          this.currentY += (this.targetY - this.currentY) * bodyLerp;
-
-          // 2. 物理驅動盒蓋 (使用 jQuery 的 .attr 批次修改 SVG 高度)
-          this.currentLidProgress += (this.targetLidProgress - this.currentLidProgress) * CONFIG.LERP.LID;
-          const newLidHeight = CONFIG.LID_INITIAL_HEIGHT * (1 - this.currentLidProgress * 0.9);
-          
-          Dom.$boxLid.attr('height', Math.max(2, newLidHeight));
-          Dom.$lidHandle.attr('y', 140 + newLidHeight - 8);
-
-          // 3. 5條觸手進度推演
-          for (let i = 0; i < 5; i++) {
-            this.currentTentacleProgress[i] += (this.targetTentacleProgress[i] - this.currentTentacleProgress[i]) * CONFIG.LERP.TENTACLE;
-          }
-
-          // 4. 顫抖與震盪矩陣計算
-          let scaleX = 1, scaleY = 1, rotation = 0, shakeX = 0, shakeY = 0;
-          if (this.mood === 'attacking') {
-            scaleX = 1.15; scaleY = 0.85; 
-          } else if (this.mood === 'angry') {
-            scaleX = 1.05; scaleY = 0.95;
-            shakeX = (Math.random() - 0.5) * 5;  
-            shakeY = (Math.random() - 0.5) * 5;
-            rotation = (Math.random() - 0.5) * 6;
-          }
-          Dom.$octopusGroup.css({'transform-origin': '0px 100px', 'transform': `translate(${this.currentX  + shakeX}px, ${this.currentY + shakeY}px) rotate(${rotation}deg) scale(${scaleX}, ${scaleY})`});
-
-          // 5. 【防穿模安全機制】
-          for (let i = 0; i < 5; i++) {
-            if (this.currentTentacleProgress[i] < 0.01) {
-              this.$tentacles[i].attr('d', '');
-              this.$suckers[i].attr('d', '');
-            } else {
-              const pathData = this.calculateTentaclePath(i);
-              this.$tentacles[i].attr('d', pathData);
-              this.$suckers[i].attr('d', pathData);
-            }
-          }
-
-          requestAnimationFrame(loop);
-        };
-        requestAnimationFrame(loop);
-      }
-    };
-
-    /**
-     * 異步行為決策大腦 (Sequence Action Timeline Engine)
-     */
-    const SequenceBrain = {
-      sleep: (ms) => new Promise(resolve => setTimeout(resolve, ms)),
-
-      async processNextAction() {
-        if (AppStore.isBusy) return;
-        AppStore.isBusy = true;
-        this.clearIdleTimer();
-
-        while (AppStore.hasAnyActiveSwitch()) {
-          const activeIndices = AppStore.getActiveIndices();
-          const count = activeIndices.length;
-
-          if (count >= 3) {
-            await this.executeWiperSweep(activeIndices);
-          } else if (count === 2) {
-            await this.executeMultiAttack(activeIndices);
-          } else if (count === 1) {
-            const targetIdx = activeIndices[0];
-            if (Math.random() < 0.35) {
-              await this.executeFakeoutAttack(targetIdx);
-            } else {
-              await this.executeSingleAttack(targetIdx);
-            }
-          }
-        }
-
-        this.returnToStandby();
-      },
-
-      /**
-       * 1. 標準擊落流程
-       */
-      async executeSingleAttack(targetIdx) {
-        Dom.$terminalText.text(`鎖定目標開關 SW-${targetIdx + 1}，平移就位... 🎯`);
-        OctopusEngine.setMood('moving', 'shocked');
-        
-        OctopusEngine.targetX = CONFIG.SWITCH_XS[targetIdx];
-        OctopusEngine.targetY = CONFIG.OCTOPUS_PEEK_Y;
-        OctopusEngine.targetLidProgress = 1.0; 
-        AudioEngine.playWood();
-        
-        await this.sleep(350);
-
-        if (!AppStore.switchesState[targetIdx]) { 
-          await this.retractTentacle(targetIdx); 
-          return; 
-        }
-
-        Dom.$terminalText.text(`看招！啪！💥`);
-        OctopusEngine.setMood('attacking', 'angry');
-        AudioEngine.playSqueak(false);
-
-        OctopusEngine.targetTentacleProgress[targetIdx] = 1.0; 
-        
-        await this.sleep(1); 
-        
-        if (AppStore.switchesState[targetIdx]) {
-          AppStore.switchesState[targetIdx] = false;
-          UIController.updateSwitchesHardwareUI();
-          AudioEngine.playClick();
-        }
-
-        await this.sleep(500);
-        await this.retractTentacle(targetIdx);
-      },
-
-      /**
-       * 2. 假動作欺騙流
-       */
-      async executeFakeoutAttack(targetIdx) {
-        Dom.$terminalText.text(`對決 SW-${targetIdx + 1}... 等等，裝死故障中... 🔌`);
-        OctopusEngine.setMood('moving', 'normal');
-        
-        OctopusEngine.targetX = CONFIG.SWITCH_XS[targetIdx];
-        OctopusEngine.targetY = 185;          
-        OctopusEngine.targetLidProgress = 0.65; 
-        AudioEngine.playWood();
-        await this.sleep(250);
-
-        if (!AppStore.switchesState[targetIdx]) { await this.retractTentacle(targetIdx); return; }
-
-        OctopusEngine.targetTentacleProgress[targetIdx] = 0.45; 
-        Dom.$terminalText.text(`（裝死中... 故意引誘你大意... 🤫）`);
-        await this.sleep(800); 
-
-        if (!AppStore.switchesState[targetIdx]) { await this.retractTentacle(targetIdx); return; }
-
-        Dom.$terminalText.text(`騙到你了！高速秒殺！🤪⚡`);
-        OctopusEngine.setMood('attacking', 'angry');
-        OctopusEngine.targetLidProgress = 1.0; 
-        OctopusEngine.targetY = CONFIG.OCTOPUS_PEEK_Y;
-        AudioEngine.playSqueak(true);
-        
-        OctopusEngine.targetTentacleProgress[targetIdx] = 1.0; 
-        await this.sleep(140);
-
-        if (AppStore.switchesState[targetIdx]) {
-          AppStore.switchesState[targetIdx] = false;
-          UIController.updateSwitchesHardwareUI();
-          AudioEngine.playClick();
-        }
-
-        await this.sleep(500);
-        await this.retractTentacle(targetIdx);
-      },
-
-      /**
-       * 3. 雙開關多觸手流
-       */
-      async executeMultiAttack(targetIndices) {
-        Dom.$terminalText.text(`竟敢同時開兩個？！多觸手火力全開！🐙🔥`);
-        OctopusEngine.setMood('angry', 'angry');
-        
-        OctopusEngine.targetX = CONFIG.OCTOPUS_IDLE_X; 
-        OctopusEngine.targetY = CONFIG.OCTOPUS_PEEK_Y;
-        OctopusEngine.targetLidProgress = 1.0;
-        AudioEngine.playWood();
-        await this.sleep(350); 
-
-        AudioEngine.playSqueak(true);
-        targetIndices.forEach(idx => { OctopusEngine.targetTentacleProgress[idx] = 1.0; }); 
-        await this.sleep(1);
-
-        targetIndices.forEach(idx => { AppStore.switchesState[idx] = false; });
-        UIController.updateSwitchesHardwareUI();
-        AudioEngine.playClick();
-
-        await this.sleep(300);
-        OctopusEngine.targetTentacleProgress = [0, 0, 0, 0, 0];
-  
-        await this.sleep(200);
-      },
-
-      /**
-       * 4. 終極大招：暴怒狂掃雨刷流
-       */
-      async executeWiperSweep(targetIndices) {
-        Dom.$terminalText.text(`本尊大抓狂！！！終極暴怒橫掃啟動！！！🧹💥`);
-        OctopusEngine.setMood('angry', 'angry');
-        
-        OctopusEngine.targetX = CONFIG.OCTOPUS_IDLE_X; 
-        OctopusEngine.targetY = CONFIG.OCTOPUS_PEEK_Y; 
-        OctopusEngine.targetLidProgress = 1.0; 
-        AudioEngine.playWood();
-        await this.sleep(350);
-
-        for (const idx of targetIndices) {
-          if (!AppStore.switchesState[idx]) continue;
-          OctopusEngine.targetX = CONFIG.SWITCH_XS[idx]; 
-          await this.sleep(80);
-          
-          OctopusEngine.targetTentacleProgress[idx] = 1.0; 
-          AudioEngine.playSqueak(false);
-          await this.sleep(1);
-
-          if (AppStore.switchesState[idx]) {
-            AppStore.switchesState[idx] = false;
-            UIController.updateSwitchesHardwareUI();
-            AudioEngine.playClick();
-          }
-          await this.sleep(40);
-          OctopusEngine.targetTentacleProgress[idx] = 0.0; 
-          await this.sleep(60);
-        }
-
-        OctopusEngine.setMood('moving', 'normal');
-        await this.sleep(500);
-        
-        
-      },
-
-      /**
-       * 觸手回收
-       */
-      async retractTentacle(idx) {
-        OctopusEngine.targetTentacleProgress[idx] = 0.0; 
-        await this.sleep(160);                          
-        OctopusEngine.setMood('moving', 'normal');
-        await this.sleep(250); 
-      },
-
-      /**
-       * 回歸標準待機
-       */
-      returnToStandby() {
-        OctopusEngine.setMood('idle', 'normal');
-        OctopusEngine.targetX = CONFIG.OCTOPUS_IDLE_X;
-        OctopusEngine.targetY = CONFIG.OCTOPUS_IDLE_Y;
-        OctopusEngine.targetLidProgress = 0.0;
-        Dom.$terminalText.text("哼，沒人能贏過我，繼續呼呼大睡... 💤");
-        AppStore.isBusy = false;
-        this.resetIdleTimer();
-      },
-
-      /**
-       * 5. 閒置彩蛋
-       */
-      resetIdleTimer() {
-        this.clearIdleTimer();
-        CONFIG.IDLE_TIMEOUT_MS = (Math.floor(Math.random() * 10) + 5) * 1000;
-        AppStore.idleTimer = setTimeout(async () => {
-          if (AppStore.isBusy || AppStore.hasAnyActiveSwitch()) return;
-          AppStore.isBusy = true;
-          
-          OctopusEngine.setMood('curious', 'normal');
-          Dom.$terminalText.text(`外面好安靜... 偷偷推開蓋子看一眼... 👀`);
-          OctopusEngine.targetLidProgress = 0.65; 
-          OctopusEngine.targetX = CONFIG.OCTOPUS_IDLE_X; 
-          OctopusEngine.targetY = 185; 
-          AudioEngine.playWood();
-          await this.sleep(600);
-          
-          Dom.$terminalText.text(`（左瞧瞧... 右望望... 沒有人... 🥱）`);
-          Dom.$leftPupil.attr('cx', '-24'); Dom.$rightPupil.attr('cx', '16');
-          await this.sleep(800);
-          Dom.$leftPupil.attr('cx', '-16'); Dom.$rightPupil.attr('cx', '24');
-          await this.sleep(800);
-          Dom.$leftPupil.attr('cx', '-20'); Dom.$rightPupil.attr('cx', '20');
-          await this.sleep(400);
-          
-          AppStore.isBusy = false;
-          if(AppStore.hasAnyActiveSwitch()){
-            SequenceBrain.processNextAction();
-            return;
-          }
-          OctopusEngine.targetY = CONFIG.OCTOPUS_IDLE_Y;
-          await this.sleep(180);
-          OctopusEngine.targetLidProgress = 0.0; 
-          AudioEngine.playWood();
-          await this.sleep(250);
-          
-          this.returnToStandby();
-        }, CONFIG.IDLE_TIMEOUT_MS);
-      },
-
-      clearIdleTimer() {
-        if (AppStore.idleTimer) clearTimeout(AppStore.idleTimer);
-      }
-    };
-
-    /**
-     * UI 視覺控制器層 (jQuery 事件監聽與 CSS 翻轉核心)
-     */
-    const UIController = {
-      init() {
-        this.bindEvents();
-        this.updateSwitchesHardwareUI();
-      },
-
-      bindEvents() {
-        // 利用 jQuery .on() 綁定 5 個撥桿的點擊事件
-        Dom.$switchContainers.on('click', function() {
-          // 透過 $(this) 取得當前點擊的元素與 data-index
-          const idx = parseInt($(this).attr('data-index'), 10);
-          AudioEngine.playClick();
-          
-          AppStore.switchesState[idx] = !AppStore.switchesState[idx];
-          UIController.updateSwitchesHardwareUI();
-          
-          setTimeout(() => { SequenceBrain.processNextAction(); }, 900);
-        });
-
-        // 靜音按鈕切換 (使用 jQuery 鏈式語法一體化完成文字與 Class 修改)
-        Dom.$btnMute.on('click', function() {
-          AudioEngine.isMuted = !AudioEngine.isMuted;
-          if (AudioEngine.isMuted) {
-            Dom.$btnMute.text('🔇 音效：靜音模式')
-                        .attr('class', "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm bg-zinc-800 text-zinc-500 border border-zinc-700 cursor-pointer");
-          } else {
-            Dom.$btnMute.text('🔊 音效：正常發聲')
-                        .attr('class', "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm bg-emerald-950/80 text-emerald-400 border border-emerald-800/60 hover:bg-emerald-900 cursor-pointer");
-          }
-        });
-
-        // 多觸手招式快捷鍵
-        Dom.$btnMulti.on('click', function() {
-          if (AppStore.isBusy) return;
-          AppStore.switchesState = [true, true, false, false, false];
-          UIController.updateSwitchesHardwareUI();
-          setTimeout(() => SequenceBrain.processNextAction(), 30);
-        });
-
-        // 狂暴流招式快捷鍵
-        Dom.$btnWiper.on('click', function() {
-          if (AppStore.isBusy) return;
-          AppStore.switchesState = [true, true, true, true, true];
-          UIController.updateSwitchesHardwareUI();
-          setTimeout(() => SequenceBrain.processNextAction(), 30);
-        });
-
-        // 點擊 body 解鎖 Web Audio 安全鎖
-        $('body').one('click', function() { AudioEngine.init(); });
-      },
-
-      /**
-       * 將陣列狀態同步渲染至 3D 撥桿 CSS 樣式 (利用 jQuery $.each 迴圈與 .find)
-       */
-      updateSwitchesHardwareUI() {
-        Dom.$switchContainers.each(function(idx) {
-          const $lever = $(this).find('.switch-lever');
-          if (AppStore.switchesState[idx]) {
-            $lever.css('transform', 'translateY(-6px) rotateX(-35deg)'); 
-          } else {
-            $lever.css('transform', 'translateY(4px) rotateX(35deg)');   
-          }
-        });
-      }
-    };
-  </script>
+  <script src="main.js"></script>
 </body>
 </html>

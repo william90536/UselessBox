@@ -1,0 +1,27 @@
+/* ===== Virtual Useless Box - style.css ===== */
+
+/* 撥桿翻轉動畫 */
+.switch-lever {
+  transition: transform 0.3s ease;
+}
+
+/* 眉毛隱藏工具類 */
+.hidden {
+  display: none;
+}
+
+/* 瞳孔與眼白動畫 */
+#left-pupil,
+#right-pupil {
+  transition: all 0.2s ease;
+}
+
+/* 章魚頭部顏色過渡 */
+#octopus-head {
+  transition: fill 0.3s ease;
+}
+
+/* 終端機閃爍游標效果 */
+#terminal-text {
+  word-break: break-all;
+}
