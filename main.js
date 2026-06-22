@@ -248,6 +248,11 @@ const SequenceBrain = {
 
     this.returnToStandby();
   },
+  
+  async tentacleMovement(idx, progress, awaitTime){
+    OctopusEngine.targetTentacleProgress[idx] = progress;
+    await this.sleep(awaitTime);
+  },
 
   async executeSingleAttack(targetIdx) {
     Dom.$terminalText.text(`鎖定目標開關 SW-${targetIdx + 1}，平移就位... 🎯`);
@@ -270,7 +275,6 @@ const SequenceBrain = {
     AudioEngine.playSqueak(false);
 
     OctopusEngine.targetTentacleProgress[targetIdx] = 1.0;
-    await this.sleep(1);
 
     if (AppStore.switchesState[targetIdx]) {
       AppStore.switchesState[targetIdx] = false;
@@ -293,10 +297,13 @@ const SequenceBrain = {
     await this.sleep(250);
 
     if (!AppStore.switchesState[targetIdx]) { await this.retractTentacle(targetIdx); return; }
-
-    OctopusEngine.targetTentacleProgress[targetIdx] = 0.45;
+    
+    for(let i = 0; i < 2; i++){
+      await this.tentacleMovement(targetIdx, 0.55, 300);
+      await this.tentacleMovement(targetIdx, 0, 300);
+    }
     Dom.$terminalText.text(`（裝死中... 故意引誘你大意... 🤫）`);
-    await this.sleep(800);
+    //await this.sleep(800);
 
     if (!AppStore.switchesState[targetIdx]) { await this.retractTentacle(targetIdx); return; }
 
@@ -307,7 +314,6 @@ const SequenceBrain = {
     AudioEngine.playSqueak(true);
 
     OctopusEngine.targetTentacleProgress[targetIdx] = 1.0;
-    await this.sleep(140);
 
     if (AppStore.switchesState[targetIdx]) {
       AppStore.switchesState[targetIdx] = false;
@@ -381,7 +387,7 @@ const SequenceBrain = {
     OctopusEngine.setMood('moving', 'normal');
     await this.sleep(250);
   },
-
+  
   returnToStandby() {
     OctopusEngine.setMood('idle', 'normal');
     OctopusEngine.targetX = CONFIG.OCTOPUS_IDLE_X;
