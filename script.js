@@ -21,7 +21,7 @@ const CONFIG = {
  * 音效合成引擎
  */
 const AudioEngine = {
-  isMuted: false,
+  isMuted: true,
   ctx: null,
   init() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
   playClick() {
