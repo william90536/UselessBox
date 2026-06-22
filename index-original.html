@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Useless Box</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js"></script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-zinc-950 text-slate-100 p-4 select-none overflow-hidden">
+
+  <div class="text-center mb-6">
+    <h1 class="text-3xl md:text-4xl font-black tracking-wider text-amber-500 uppercase drop-shadow-md">
+      Useless Box
+    </h1>
+  </div>
+
+  <div class="relative w-full max-w-[620px] bg-zinc-900 border border-zinc-800 rounded-3xl p-4 md:p-6 shadow-2xl">
+
+    <!-- 頂部控制列 -->
+    <div class="flex justify-between items-center mb-4">
+      <button id="btn-mute" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-sm bg-emerald-950/80 text-emerald-400 border border-emerald-800/60 hover:bg-emerald-900 cursor-pointer">
+        🔊 音效：正常發聲
+      </button>
+      <div class="flex gap-2">
+        <button id="btn-multi" class="text-[11px] bg-purple-950 text-purple-300 border border-purple-800/50 hover:bg-purple-900 font-semibold px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer">
+          併發：多觸手流
+        </button>
+        <button id="btn-wiper" class="text-[11px] bg-rose-950 text-rose-300 border border-rose-800/50 hover:bg-rose-900 font-semibold px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer">
+          大招：暴怒橫掃
+        </button>
+      </div>
+    </div>
+
+    <!-- SVG 主畫布 -->
+    <div class="relative w-full aspect-[600/380] bg-zinc-950 rounded-2xl border-4 border-amber-950 overflow-hidden shadow-inner">
+      <svg viewBox="0 0 600 380" class="w-full h-full">
+
+        <!-- 箱體底部 -->
+        <rect x="40" y="140" width="520" height="230" fill="#140e0a" rx="8" />
+
+        <!-- 章魚本體 -->
+        <g id="octopus-group" style="transform-origin: center bottom;">
+          <path id="octopus-head" d="M -50 0 C -50 -55, 50 -55, 50 0 C 50 30, -50 30, -50 0" fill="#8b5cf6" class="transition-colors duration-300" />
+
+          <g transform="translate(0, -10)">
+            <ellipse id="left-eye-white"  cx="-20" cy="0" rx="13" ry="13" fill="#ffffff" />
+            <ellipse id="right-eye-white" cx="20"  cy="0" rx="13" ry="13" fill="#ffffff" />
+            <path id="eyebrow-left"  d="M -35 -14 L -5 -7"  stroke="#311068" stroke-width="4" stroke-linecap="round" class="hidden" />
+            <path id="eyebrow-right" d="M 35 -14 L 5 -7"    stroke="#311068" stroke-width="4" stroke-linecap="round" class="hidden" />
+            <circle id="left-pupil"  cx="-20" cy="0" r="7" fill="#1e1b4b" class="transition-all duration-200" />
+            <circle id="right-pupil" cx="20"  cy="0" r="7" fill="#1e1b4b" class="transition-all duration-200" />
+            <circle id="left-shine"  cx="-22" cy="-3" r="2.5" fill="#ffffff" />
+            <circle id="right-shine" cx="18"  cy="-3" r="2.5" fill="#ffffff" />
+            <path id="mouth-path" d="M -6 12 Q 0 17 6 12" fill="none" stroke="#1e1b4b" stroke-width="3" stroke-linecap="round" />
+          </g>
+        </g>
+
+        <!-- 箱體邊緣隔板 -->
+        <rect x="40" y="140" width="520" height="15" fill="#451a03" />
+
+        <!-- 箱體面板 -->
+        <rect x="35" y="210" width="530" height="155" fill="#9a3412" rx="4" stroke="#451a03" stroke-width="1.5" />
+        <rect x="35" y="210" width="530" height="15"  fill="#b45309" rx="2" />
+
+        <!-- 盒蓋 -->
+        <rect id="box-lid"    x="35"  y="140" width="530" height="72" fill="#78350f" rx="4" stroke="#290f02" stroke-width="1.5" />
+        <rect id="lid-handle" x="270" y="202" width="60"  height="6"  fill="#d97706" rx="1" />
+
+        <!-- 開關底板 -->
+        <rect x="60" y="300" width="480" height="40" fill="url(#chrome-gradient)" rx="6" stroke="#290f02" stroke-width="1" />
+
+        <!-- 觸手層 -->
+        <g id="all-tentacles-layer">
+          <path id="tentacle-0" d="" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round" />
+          <path id="suckers-0"  d="" fill="none" stroke="#f472b6" stroke-width="4"  stroke-linecap="round" stroke-dasharray="3 7" />
+
+          <path id="tentacle-1" d="" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round" />
+          <path id="suckers-1"  d="" fill="none" stroke="#f472b6" stroke-width="4"  stroke-linecap="round" stroke-dasharray="3 7" />
+
+          <path id="tentacle-2" d="" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round" />
+          <path id="suckers-2"  d="" fill="none" stroke="#f472b6" stroke-width="4"  stroke-linecap="round" stroke-dasharray="3 7" />
+
+          <path id="tentacle-3" d="" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round" />
+          <path id="suckers-3"  d="" fill="none" stroke="#f472b6" stroke-width="4"  stroke-linecap="round" stroke-dasharray="3 7" />
+
+          <path id="tentacle-4" d="" fill="none" stroke="#a855f7" stroke-width="15" stroke-linecap="round" />
+          <path id="suckers-4"  d="" fill="none" stroke="#f472b6" stroke-width="4"  stroke-linecap="round" stroke-dasharray="3 7" />
+        </g>
+
+        <defs>
+          <linearGradient id="chrome-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#9ca3af" />
+            <stop offset="50%"  stop-color="#4b5563" />
+            <stop offset="100%" stop-color="#1f2937" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- 5 個撥桿開關 (HTML 覆蓋層) -->
+      <div class="absolute left-[10%] top-[78.95%] w-[80%] h-[10.53%] flex justify-between items-center px-[4%] z-20">
+
+        <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="0">
+          <div class="w-3 h-6 bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
+            <div class="switch-lever w-1.5 h-6 rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[2px] rotate-x-[35deg]">
+              <div class="w-2.5 h-2.5 -ml-0.5 rounded-full bg-red-500 border border-red-400 shadow-sm"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="1">
+          <div class="w-3 h-6 bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
+            <div class="switch-lever w-1.5 h-6 rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[2px] rotate-x-[35deg]">
+              <div class="w-2.5 h-2.5 -ml-0.5 rounded-full bg-red-500 border border-red-400 shadow-sm"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="2">
+          <div class="w-3 h-6 bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
+            <div class="switch-lever w-1.5 h-6 rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[2px] rotate-x-[35deg]">
+              <div class="w-2.5 h-2.5 -ml-0.5 rounded-full bg-red-500 border border-red-400 shadow-sm"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="3">
+          <div class="w-3 h-6 bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
+            <div class="switch-lever w-1.5 h-6 rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[2px] rotate-x-[35deg]">
+              <div class="w-2.5 h-2.5 -ml-0.5 rounded-full bg-red-500 border border-red-400 shadow-sm"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="4">
+          <div class="w-3 h-6 bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
+            <div class="switch-lever w-1.5 h-6 rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[2px] rotate-x-[35deg]">
+              <div class="w-2.5 h-2.5 -ml-0.5 rounded-full bg-red-500 border border-red-400 shadow-sm"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 終端機顯示列 -->
+    <div class="mt-5 bg-black border border-zinc-800 rounded-xl p-3 shadow-inner">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+        <span class="text-[10px] font-mono text-emerald-500 tracking-widest uppercase">OCTOPUS_MIND_OS v2.1_jquery</span>
+      </div>
+      <div class="min-h-[38px] font-mono text-xs md:text-sm text-emerald-400 tracking-wide">
+        &gt; <span id="terminal-text">系統就緒。jQuery 核心包與快取優化內核載入完畢... 💤</span>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
