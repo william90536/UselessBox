@@ -298,17 +298,24 @@ const SequenceBrain = {
 
     if (!AppStore.switchesState[targetIdx]) { await this.retractTentacle(targetIdx); return; }
     
-    for(let i = 0; i < 2; i++){
-      await this.tentacleMovement(targetIdx, 0.55, 300);
+    // 🎲 隨機產生假動作次數 (3 ~ 5 次)
+    const randomLoops = Math.floor(Math.random() * 3) + 1; 
+    
+    for (let i = 0; i < randomLoops; i++) {
+      if (!AppStore.switchesState[targetIdx]) break;
+
+      const outDuration = Math.floor(Math.random() * 701) + 300;
+
+      await this.tentacleMovement(targetIdx, 0.35, outDuration);
       await this.tentacleMovement(targetIdx, 0, 300);
     }
+    
     Dom.$terminalText.text(`（裝死中... 故意引誘你大意... 🤫）`);
-    //await this.sleep(800);
 
     if (!AppStore.switchesState[targetIdx]) { await this.retractTentacle(targetIdx); return; }
 
     Dom.$terminalText.text(`騙到你了！高速秒殺！🤪⚡`);
-    OctopusEngine.setMood('attacking', 'angry');
+    OctopusEngine.setMood('attacking', 'normal');
     OctopusEngine.targetLidProgress = 1.0;
     OctopusEngine.targetY = CONFIG.OCTOPUS_PEEK_Y;
     AudioEngine.playSqueak(true);
@@ -324,6 +331,7 @@ const SequenceBrain = {
     await this.sleep(500);
     await this.retractTentacle(targetIdx);
   },
+
 
   async executeMultiAttack(targetIndices) {
     Dom.$terminalText.text(`竟敢同時開兩個？！多觸手火力全開！🐙🔥`);
@@ -358,8 +366,11 @@ const SequenceBrain = {
     AudioEngine.playWood();
     await this.sleep(350);
 
-    for (const idx of targetIndices) {
+    const randomizedIndices = [...targetIndices].sort(() => Math.random() - 0.5);
+
+    for (const idx of randomizedIndices) {
       if (!AppStore.switchesState[idx]) continue;
+      
       OctopusEngine.targetX = CONFIG.SWITCH_XS[idx];
       await this.sleep(80);
 
@@ -372,6 +383,7 @@ const SequenceBrain = {
         UIController.updateSwitchesHardwareUI();
         AudioEngine.playClick();
       }
+      
       await this.sleep(40);
       OctopusEngine.targetTentacleProgress[idx] = 0.0;
       await this.sleep(60);
@@ -380,6 +392,7 @@ const SequenceBrain = {
     OctopusEngine.setMood('moving', 'normal');
     await this.sleep(500);
   },
+
 
   async retractTentacle(idx) {
     OctopusEngine.targetTentacleProgress[idx] = 0.0;
@@ -456,7 +469,7 @@ const UIController = {
       AudioEngine.playClick();
       AppStore.switchesState[idx] = !AppStore.switchesState[idx];
       UIController.updateSwitchesHardwareUI();
-      setTimeout(() => { SequenceBrain.processNextAction(); }, 900);
+      setTimeout(() => { SequenceBrain.processNextAction(); }, 1000);
     });
 
     Dom.$btnMute.on('click', function () {
