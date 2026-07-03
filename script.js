@@ -255,7 +255,7 @@ const SequenceBrain = {
   },
   
   async extendAllTentacles(){
-    await this.sleep(150);
+    await this.sleep(200);
     OctopusEngine.targetTentacleProgress = [0.22, 0.22, 0.22, 0.22, 0.22];
   },
   
