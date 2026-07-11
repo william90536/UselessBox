@@ -24,15 +24,13 @@
     #06b6d4 70%,
     #a855f7 100%
   );
-  
   background-size: 200% auto;
-  
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  
   animation: cyber-glow-flow 4s linear infinite;
 }
+
 .cyber-gradient-dot {
   background: linear-gradient(
     90deg, 
@@ -42,7 +40,6 @@
     #06b6d4 70%,
     #a855f7 100%
   );
-  
   background-size: 200% auto;
   animation: cyber-glow-flow 4s linear infinite;
 }
@@ -55,33 +52,35 @@
     background-position: 200% center;
   }
 }
-/* 撥桿翻轉動畫 */
+
+.switch-container .bg-zinc-950 {
+  width: 50%;
+  height: 150%;
+}
+
 .switch-lever {
   transition: transform 0.3s ease;
 }
 
-/* 眉毛隱藏工具類 */
 .hidden {
   display: none;
 }
 
-/* 瞳孔與眼白動畫 */
 #left-pupil,
 #right-pupil {
   transition: all 0.2s ease;
 }
 
-/* 章魚頭部顏色過渡 */
 #octopus-head {
   transition: fill 0.3s ease;
 }
 
-/* 終端機閃爍游標效果 */
 #terminal-text {
   word-break: break-all;
 }
 
-/*響應式比例優化樣式*/
-.switch-container [class*="aspect-[12/24]"] {
-  max-width: 12px !important; 
+@media (max-width: 640px) {
+  .switch-container {
+    width: 11%;
+  }
 }
