@@ -1,6 +1,3 @@
-/**
- * 全域核心參數配置
- */
 const CONFIG = {
   SWITCH_XS: [98, 199, 300, 401, 502],
   SWITCH_Y: 315,
@@ -17,9 +14,6 @@ const CONFIG = {
   }
 };
 
-/**
- * 音效合成引擎
- */
 const AudioEngine = {
   isMuted: true,
   ctx: null,
@@ -57,14 +51,8 @@ const AudioEngine = {
   }
 };
 
-/**
- * jQuery DOM 元素統一管理器
- */
 let Dom = {};
 
-/**
- * 全域應用程式狀態模型
- */
 const AppStore = {
   switchesState: [false, false, false, false, false],
   isBusy: false,
@@ -79,9 +67,6 @@ const AppStore = {
   }
 };
 
-/**
- * 章魚物理運算與視覺渲染引擎 (jQuery 驅動版)
- */
 const OctopusEngine = {
   targetX: CONFIG.OCTOPUS_IDLE_X,
   targetY: CONFIG.OCTOPUS_IDLE_Y,
@@ -217,9 +202,6 @@ const OctopusEngine = {
   }
 };
 
-/**
- * 異步行為決策大腦
- */
 const SequenceBrain = {
   sleep: (ms) => new Promise(resolve => setTimeout(resolve, ms)),
 
@@ -408,14 +390,6 @@ const SequenceBrain = {
     await this.retractAllTentacles();
     await this.sleep(400);
   },
-
-
-  async retractTentacle(idx) {
-    OctopusEngine.targetTentacleProgress[idx] = 0.0;
-    await this.sleep(160);
-    OctopusEngine.setMood('moving', 'normal');
-    await this.sleep(250);
-  },
   
   returnToStandby() {
     OctopusEngine.setMood('idle', 'normal');
@@ -479,9 +453,6 @@ const SequenceBrain = {
   }
 };
 
-/**
- * UI 視覺控制器層
- */
 const UIController = {
   init() {
     this.bindEvents();
@@ -565,9 +536,6 @@ const Clock = {
 
 };
 
-/**
- * jQuery Ready 入口
- */
 $(function () {
   Dom = {
     $btnMute: $('#btn-mute'),
