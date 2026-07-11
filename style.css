@@ -5,7 +5,16 @@
   font-family: 'Share Tech Mono', monospace;
 }
 
-/* 漸層文字特效 */
+#clock-date {
+  font-size: 4vw; 
+}
+@media (min-width: 768px) {
+  #clock-date {
+    font-size: 14px;
+  }
+}
+
+/*漸層文字特效*/
 .cyber-gradient-text {
   background: linear-gradient(
     90deg, 
@@ -15,13 +24,15 @@
     #06b6d4 70%,
     #a855f7 100%
   );
+  
   background-size: 200% auto;
+  
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  
   animation: cyber-glow-flow 4s linear infinite;
 }
-
 .cyber-gradient-dot {
   background: linear-gradient(
     90deg, 
@@ -31,15 +42,19 @@
     #06b6d4 70%,
     #a855f7 100%
   );
+  
   background-size: 200% auto;
   animation: cyber-glow-flow 4s linear infinite;
 }
 
 @keyframes cyber-glow-flow {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
-
 /* 撥桿翻轉動畫 */
 .switch-lever {
   transition: transform 0.3s ease;
@@ -47,7 +62,7 @@
 
 /* 眉毛隱藏工具類 */
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 /* 瞳孔與眼白動畫 */
@@ -61,8 +76,12 @@
   transition: fill 0.3s ease;
 }
 
-/* 修正這裡：完全移除 max-width: 12px 的鎖死限制 */
-/* 改用百分比寬度控制，讓按鈕底座佔滿插槽插槽的 25% ~ 30%，並隨外層等比放大 */
+/* 終端機閃爍游標效果 */
+#terminal-text {
+  word-break: break-all;
+}
+
+/*響應式比例優化樣式*/
 .switch-container [class*="aspect-[12/24]"] {
-  width: 28% !important;
+  max-width: 12px !important; 
 }
