@@ -6,14 +6,8 @@
 }
 
 #clock-date {
-  font-size: 4vw; 
+  font-size: 3vw; 
 }
-@media (min-width: 768px) {
-  #clock-date {
-    font-size: 14px;
-  }
-}
-
 /*漸層文字特效*/
 .cyber-gradient-text {
   background: linear-gradient(
@@ -79,6 +73,7 @@
   word-break: break-all;
 }
 
+/* 媒體查詢優化小屏幕 */
 @media (max-width: 640px) {
   .switch-container {
     width: 11%;
