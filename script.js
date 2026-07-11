@@ -390,6 +390,14 @@ const SequenceBrain = {
     await this.retractAllTentacles();
     await this.sleep(400);
   },
+
+
+  async retractTentacle(idx) {
+    OctopusEngine.targetTentacleProgress[idx] = 0.0;
+    await this.sleep(160);
+    OctopusEngine.setMood('moving', 'normal');
+    await this.sleep(250);
+  },
   
   returnToStandby() {
     OctopusEngine.setMood('idle', 'normal');
