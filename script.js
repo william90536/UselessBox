@@ -501,9 +501,9 @@ const UIController = {
     Dom.$switchContainers.each(function (idx) {
       const $lever = $(this).find('.switch-lever');
       if (AppStore.switchesState[idx]) {
-        $lever.css('transform', 'translateY(-6px) rotateX(-35deg)');
+        $lever.css('transform', 'translateY(-25%) rotateX(-35deg)');
       } else {
-        $lever.css('transform', 'translateY(4px) rotateX(35deg)');
+        $lever.css('transform', 'translateY(20%) rotateX(35deg)');
       }
     });
   }
