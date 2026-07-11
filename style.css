@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
 body {
-  padding-top: 120px; /* 给时钟腾出空间 */
+  padding-top: 120px;
 }
 
 @media (max-width: 768px) {
   body {
-    padding-top: 100px; /* 小屏幕上减少 */
+    padding-top: 100px;
   }
 }
 
@@ -24,7 +24,6 @@ body {
   }
 }
 
-/*漸層文字特效*/
 .cyber-gradient-text {
   background: linear-gradient(
     90deg, 
@@ -89,7 +88,6 @@ body {
   word-break: break-all;
 }
 
-/* 媒體查詢優化小屏幕 */
 @media (max-width: 640px) {
   .switch-container {
     width: 11%;
