@@ -1,3 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+#clock-time,
+#clock-date {
+  font-family: 'Share Tech Mono', monospace;
+}
+/*漸層文字特效*/
+.cyber-gradient-text {
+  background: linear-gradient(
+    90deg, 
+    #a855f7 0%,
+    #06b6d4 30%,
+    #10b981 50%,
+    #06b6d4 70%,
+    #a855f7 100%
+  );
+  
+  background-size: 200% auto;
+  
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  animation: cyber-glow-flow 4s linear infinite;
+}
+.cyber-gradient-dot {
+  background: linear-gradient(
+    90deg, 
+    #a855f7 0%,
+    #06b6d4 30%,
+    #10b981 50%,
+    #06b6d4 70%,
+    #a855f7 100%
+  );
+  
+  background-size: 200% auto;
+  animation: cyber-glow-flow 4s linear infinite;
+}
+
+@keyframes cyber-glow-flow {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
 /* 撥桿翻轉動畫 */
 .switch-lever {
   transition: transform 0.3s ease;
@@ -22,4 +69,11 @@
 /* 終端機閃爍游標效果 */
 #terminal-text {
   word-break: break-all;
+}
+
+/* ==========================================
+   響應式比例優化樣式
+   ========================================== */
+.switch-container [class*="aspect-[12/24]"] {
+  max-width: 12px !important; 
 }

@@ -537,6 +537,34 @@ const UIController = {
   }
 };
 
+const Clock = {
+  init() {
+    this.UpdateClock();
+    setInterval(this.UpdateClock, 1000);
+  },
+  
+  UpdateClock() {
+    let time = new Date();
+    let timeDetails = {
+      year: time.getFullYear(),
+      month: time.getMonth() + 1,
+      date: time.getDate(), 
+      hour: time.getHours(),
+      minute: time.getMinutes(),
+      second: time.getSeconds()
+    };
+  
+    const pad = (num) => String(num).padStart(2, '0');
+
+    let dateText = `${timeDetails.year}/${pad(timeDetails.month)}/${pad(timeDetails.date)} `;
+    let timeText = `${pad(timeDetails.hour)}:${pad(timeDetails.minute)}:${pad(timeDetails.second)}`;
+  
+    Dom.$clockDate.text(dateText);
+    Dom.$clockTime.text(timeText);
+  }
+
+};
+
 /**
  * jQuery Ready 入口
  */
@@ -557,9 +585,12 @@ $(function () {
     $leftPupil: $('#left-pupil'),
     $rightPupil: $('#right-pupil'),
     $mouthPath: $('#mouth-path'),
-    $switchContainers: $('.switch-container')
+    $switchContainers: $('.switch-container'),
+    $clockDate: $('#clock-date'),
+    $clockTime: $('#clock-time')
   };
 
+  Clock.init();
   OctopusEngine.init();
   UIController.init();
   SequenceBrain.resetIdleTimer();
