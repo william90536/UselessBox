@@ -9,25 +9,28 @@
   <link rel="stylesheet" href="style.css">
   <script src="script.js"></script>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen bg-zinc-950 text-slate-100 p-4 md:p-8 select-none overflow-hidden relative">
-  <div class="w-full max-w-[900px] flex flex-col items-center justify-center relative">
-    <div id="clock" class="absolute bottom-[102%] left-0 right-0 mb-2 flex flex-col items-center justify-center select-none tracking-widest font-mono">
-      
-      <div class="flex items-center gap-[1.5vw] md:gap-3 text-[2.2vw] md:text-[14px] text-zinc-500 font-bold uppercase">
-        <span class="flex h-[2vw] w-[2vw] md:h-3 md:w-3 relative">
-          <span class="cyber-gradient-dot animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"></span>
-          <span class="cyber-gradient-dot relative inline-flex rounded-full h-full w-full shadow-[0_0_8px_rgba(168,85,247,0.6)]"></span>
-        </span>
-        <span id="clock-date">2026/07/10</span>
-      </div>
+<!-- 調整 body：移除 overflow-hidden 避免小螢幕被切掉，調整 gap 讓物件和諧並存 -->
+<body class="flex flex-col items-center justify-center min-h-screen bg-zinc-950 text-slate-100 p-4 md:p-6 select-none relative gap-6">
 
-      <div id="clock-time" class="cyber-gradient-text text-[16vw] md:text-6xl font-extrabold leading-none mt-[1.5vw] md:mt-3 drop-shadow-[0_0_12px_rgba(168,85,247,0.4)]">
-        17:23:56
-      </div>
-      
+  <!-- 移除 absolute，讓時鐘變成一般的區塊元素，自然排在箱子上方 -->
+  <div id="clock" class="w-full flex flex-col items-center justify-center select-none tracking-widest font-mono">
+    <div class="flex items-center gap-2 text-xs md:text-[14px] text-zinc-500 font-bold uppercase">
+      <span class="flex h-2.5 w-2.5 relative">
+        <span class="cyber-gradient-dot animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"></span>
+        <span class="cyber-gradient-dot relative inline-flex rounded-full h-full w-full shadow-[0_0_8px_rgba(168,85,247,0.6)]"></span>
+      </span>
+      <span id="clock-date">2026/07/10</span>
     </div>
 
-    <div class="relative w-full bg-zinc-900 border border-zinc-800 rounded-2xl md:rounded-3xl p-3 md:p-10 shadow-2xl">
+    <!-- 調整時鐘字體大小：避免手機或小螢幕上太大把空間佔滿 -->
+    <div id="clock-time" class="cyber-gradient-text text-5xl md:text-6xl font-extrabold leading-none mt-2 drop-shadow-[0_0_12px_rgba(168,85,247,0.4)]">
+      17:23:56
+    </div>
+  </div>
+
+  <!-- 箱子主外殼：縮小最大寬度為 max-w-[750px] 騰出更多高度給時鐘 -->
+  <div class="w-full max-w-[750px] relative">
+    <div class="relative w-full bg-zinc-900 border border-zinc-800 rounded-2xl md:rounded-3xl p-3 md:p-8 shadow-2xl">
 
       <div class="relative w-full aspect-[600/380] bg-zinc-950 rounded-xl md:rounded-2xl border-2 md:border-[5px] border-amber-950 overflow-hidden shadow-inner">
         <svg viewBox="0 0 600 380" class="w-full h-full">
@@ -86,10 +89,11 @@
           </defs>
         </svg>
 
+        <!-- 開關觸發層：將 w-full 換成 w-[25%] 讓底座整體變寬大 -->
         <div class="absolute left-[10%] top-[78.95%] w-[80%] h-[10.53%] flex justify-between items-center px-[4%] z-20">
 
           <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="0">
-            <div class="w-full aspect-[12/24] bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
+            <div class="w-[30%] aspect-[12/24] bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
               <div class="switch-lever w-[50%] h-full rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[10%] rotate-x-[35deg]">
                 <div class="w-[160%] aspect-square -ml-[30%] rounded-full bg-red-500 border border-red-400 shadow-sm"></div>
               </div>
@@ -97,7 +101,7 @@
           </div>
 
           <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="1">
-            <div class="w-full aspect-[12/24] bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
+            <div class="w-[30%] aspect-[12/24] bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
               <div class="switch-lever w-[50%] h-full rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[10%] rotate-x-[35deg]">
                 <div class="w-[160%] aspect-square -ml-[30%] rounded-full bg-red-500 border border-red-400 shadow-sm"></div>
               </div>
@@ -105,7 +109,7 @@
           </div>
 
           <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="2">
-            <div class="w-full aspect-[12/24] bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
+            <div class="w-[30%] aspect-[12/24] bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
               <div class="switch-lever w-[50%] h-full rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[10%] rotate-x-[35deg]">
                 <div class="w-[160%] aspect-square -ml-[30%] rounded-full bg-red-500 border border-red-400 shadow-sm"></div>
               </div>
@@ -113,7 +117,7 @@
           </div>
 
           <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="3">
-            <div class="w-full aspect-[12/24] bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
+            <div class="w-[30%] aspect-[12/24] bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
               <div class="switch-lever w-[50%] h-full rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[10%] rotate-x-[35deg]">
                 <div class="w-[160%] aspect-square -ml-[30%] rounded-full bg-red-500 border border-red-400 shadow-sm"></div>
               </div>
@@ -121,7 +125,7 @@
           </div>
 
           <div class="flex flex-col items-center justify-center w-[12%] h-full cursor-pointer switch-container" data-index="4">
-            <div class="w-full aspect-[12/24] bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
+            <div class="w-[30%] aspect-[12/24] bg-zinc-950 rounded-full border border-zinc-800 flex items-center justify-center shadow-inner">
               <div class="switch-lever w-[50%] h-full rounded-full bg-gradient-to-b from-zinc-100 via-zinc-400 to-zinc-600 shadow-md transition-all duration-300 origin-center translate-y-[10%] rotate-x-[35deg]">
                 <div class="w-[160%] aspect-square -ml-[30%] rounded-full bg-red-500 border border-red-400 shadow-sm"></div>
               </div>
@@ -135,5 +139,4 @@
   </div>
   
 </body>
-
 </html>
