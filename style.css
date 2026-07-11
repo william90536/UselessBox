@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
+body {
+  padding-top: 120px; /* 给时钟腾出空间 */
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 100px; /* 小屏幕上减少 */
+  }
+}
+
 #clock-time,
 #clock-date {
   font-family: 'Share Tech Mono', monospace;
