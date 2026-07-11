@@ -274,6 +274,11 @@ const SequenceBrain = {
 
     const stopTime = Math.floor(Math.random() * 301) + 700;
     await this.sleep(stopTime);
+    
+    if (!AppStore.switchesState[targetIdx]) {
+      await this.retractAllTentacles();
+      return;
+    }
     Dom.$terminalText.text(`看招！啪！💥`);
     OctopusEngine.setMood('attacking', 'normal');
     AudioEngine.playSqueak(false);
