@@ -8,6 +8,12 @@
 #clock-date {
   font-size: 3vw; 
 }
+@media (min-width: 768px) {
+  #clock-date {
+    font-size: 60px;
+  }
+}
+
 /*漸層文字特效*/
 .cyber-gradient-text {
   background: linear-gradient(
