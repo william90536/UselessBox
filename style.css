@@ -4,6 +4,11 @@
 #clock-date {
   font-family: 'Share Tech Mono', monospace;
 }
+
+#clock-date {
+  font-size: 3vw;
+}
+
 /*漸層文字特效*/
 .cyber-gradient-text {
   background: linear-gradient(
