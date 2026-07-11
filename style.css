@@ -6,7 +6,12 @@
 }
 
 #clock-date {
-  font-size: 5vw;
+  font-size: 4vw; 
+}
+@media (min-width: 768px) {
+  #clock-date {
+    font-size: 14px;
+  }
 }
 
 /*漸層文字特效*/
