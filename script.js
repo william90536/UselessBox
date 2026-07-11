@@ -213,6 +213,9 @@ const SequenceBrain = {
     while (AppStore.hasAnyActiveSwitch()) {
       const activeIndices = AppStore.getActiveIndices();
       const count = activeIndices.length;
+      OctopusEngine.targetLidProgress = 1.0;
+      OctopusEngine.targetY = CONFIG.OCTOPUS_PEEK_Y;
+      await this.extendAllTentacles();
 
       if (count >= 3) {
         await this.executeWiperSweep(activeIndices);
@@ -227,13 +230,21 @@ const SequenceBrain = {
         }
       }
     }
-
+    
+    await this.retractAllTentacles();
     this.returnToStandby();
   },
   
   async tentacleMovement(idx, progress, awaitTime){
     OctopusEngine.targetTentacleProgress[idx] = progress;
     await this.sleep(awaitTime);
+  },
+  
+  async retractTentacle(idx) {
+    OctopusEngine.targetTentacleProgress[idx] = 0.22;
+    await this.sleep(160);
+    OctopusEngine.setMood('moving', 'normal');
+    await this.sleep(250);
   },
   
   async extendAllTentacles(){
@@ -249,12 +260,9 @@ const SequenceBrain = {
 
   async executeSingleAttack(targetIdx) {
     Dom.$terminalText.text(`鎖定目標開關 SW-${targetIdx + 1}，平移就位... 🎯`);
-    OctopusEngine.setMood('moving', 'shocked');
+    OctopusEngine.setMood('moving', 'normal');
 
     OctopusEngine.targetX = CONFIG.SWITCH_XS[targetIdx];
-    OctopusEngine.targetY = CONFIG.OCTOPUS_PEEK_Y;
-    OctopusEngine.targetLidProgress = 1.0;
-    await this.extendAllTentacles();
     AudioEngine.playWood();
 
     await this.sleep(350);
@@ -264,8 +272,10 @@ const SequenceBrain = {
       return;
     }
 
+    const stopTime = Math.floor(Math.random() * 301) + 700;
+    await this.sleep(stopTime);
     Dom.$terminalText.text(`看招！啪！💥`);
-    OctopusEngine.setMood('attacking', 'angry');
+    OctopusEngine.setMood('attacking', 'normal');
     AudioEngine.playSqueak(false);
 
     OctopusEngine.targetTentacleProgress[targetIdx] = 1.0;
@@ -277,7 +287,7 @@ const SequenceBrain = {
     }
 
     await this.sleep(500);
-    await this.retractAllTentacles();
+    await this.retractTentacle(targetIdx);
   },
 
   async executeFakeoutAttack(targetIdx) {
@@ -285,9 +295,6 @@ const SequenceBrain = {
     OctopusEngine.setMood('moving', 'normal');
 
     OctopusEngine.targetX = CONFIG.SWITCH_XS[targetIdx];
-    OctopusEngine.targetY = 185;
-    OctopusEngine.targetLidProgress = 0.65;
-    await this.extendAllTentacles();
     AudioEngine.playWood();
     await this.sleep(250);
 
@@ -311,11 +318,9 @@ const SequenceBrain = {
     if (!AppStore.switchesState[targetIdx]) { await this.retractAllTentacles(); 
       return;
     }
-
+    
     Dom.$terminalText.text(`騙到你了！高速秒殺！🤪⚡`);
     OctopusEngine.setMood('attacking', 'normal');
-    OctopusEngine.targetLidProgress = 1.0;
-    OctopusEngine.targetY = CONFIG.OCTOPUS_PEEK_Y;
     AudioEngine.playSqueak(true);
 
     OctopusEngine.targetTentacleProgress[targetIdx] = 1.0;
@@ -327,7 +332,7 @@ const SequenceBrain = {
     }
 
     await this.sleep(500);
-    await this.retractAllTentacles();
+    await this.retractTentacle(targetIdx);
   },
 
 
@@ -336,9 +341,6 @@ const SequenceBrain = {
     OctopusEngine.setMood('angry', 'angry');
 
     OctopusEngine.targetX = CONFIG.OCTOPUS_IDLE_X;
-    OctopusEngine.targetY = CONFIG.OCTOPUS_PEEK_Y;
-    OctopusEngine.targetLidProgress = 1.0;
-    await this.extendAllTentacles();
     AudioEngine.playWood();
     await this.sleep(350);
 
@@ -349,8 +351,7 @@ const SequenceBrain = {
     UIController.updateSwitchesHardwareUI();
     AudioEngine.playClick();
 
-    await this.sleep(300);
-    await this.retractAllTentacles();
+    await this.sleep(500);
   },
 
   async executeWiperSweep(targetIndices) {
@@ -358,9 +359,6 @@ const SequenceBrain = {
     OctopusEngine.setMood('angry', 'angry');
 
     OctopusEngine.targetX = CONFIG.OCTOPUS_IDLE_X;
-    OctopusEngine.targetY = CONFIG.OCTOPUS_PEEK_Y;
-    OctopusEngine.targetLidProgress = 1.0;
-    await this.extendAllTentacles();
     AudioEngine.playWood();
     await this.sleep(350);
 
@@ -387,16 +385,7 @@ const SequenceBrain = {
       await this.sleep(60);
     }
 
-    await this.retractAllTentacles();
-    await this.sleep(400);
-  },
-
-
-  async retractTentacle(idx) {
-    OctopusEngine.targetTentacleProgress[idx] = 0.0;
-    await this.sleep(160);
-    OctopusEngine.setMood('moving', 'normal');
-    await this.sleep(250);
+    await this.sleep(500);
   },
   
   returnToStandby() {
@@ -409,7 +398,7 @@ const SequenceBrain = {
     this.resetIdleTimer();
   },
 
-    resetIdleTimer() {
+  resetIdleTimer() {
     this.clearIdleTimer();
     CONFIG.IDLE_TIMEOUT_MS = (Math.floor(Math.random() * 10) + 5) * 1000;
     AppStore.idleTimer = setTimeout(async () => {
@@ -442,8 +431,7 @@ const SequenceBrain = {
         return;
       }
       
-      OctopusEngine.targetTentacleProgress = [0.0, 0.0, 0.0, 0.0, 0.0];
-      await this.sleep(150);
+      await this.retractAllTentacles();
       OctopusEngine.targetY = CONFIG.OCTOPUS_IDLE_Y;
       await this.sleep(180);
       
