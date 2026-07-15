@@ -357,6 +357,9 @@ const SequenceBrain = {
     AudioEngine.playClick();
 
     await this.sleep(500);
+    targetIndices.forEach(idx => { OctopusEngine.targetTentacleProgress[idx] = 0.22; });
+    OctopusEngine.setMood('moving', 'normal');
+    await this.sleep(500);
   },
 
   async executeWiperSweep(targetIndices) {
@@ -389,7 +392,7 @@ const SequenceBrain = {
       OctopusEngine.targetTentacleProgress[idx] = 0.22;
       await this.sleep(60);
     }
-
+    OctopusEngine.setMood('moving', 'normal');
     await this.sleep(500);
   },
   
